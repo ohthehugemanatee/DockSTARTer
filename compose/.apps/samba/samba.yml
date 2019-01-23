@@ -10,9 +10,7 @@ services:
         max-file: ${DOCKERLOGGING_MAXFILE}
         max-size: ${DOCKERLOGGING_MAXSIZE}
     environment:
-      - GROUPID=${PGID}
       - TZ=${TZ}
-      - USERID=${PUID}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${DOCKERCONFDIR}:/shares/dockerconf
@@ -24,4 +22,4 @@ services:
       - ${MEDIADIR_MUSIC}:/shares/music
       - ${MEDIADIR_TV}:/shares/tv
     command:
-      - '-u "${SAMBA_USERNAME};${SAMBA_PASSWORD}" -s "Shares;/shares;yes;no;no;${SAMBA_USERNAME}"'
+      - '-u "${SAMBA_USERNAME};${SAMBA_PASSWORD};${PUID};${PGID}" -s "Shares;/shares;yes;no;no;${SAMBA_USERNAME}"'
