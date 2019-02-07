@@ -11,8 +11,7 @@ update_self() {
     local YN
     while true; do
         if [[ ${CI:-} == true ]] && [[ ${TRAVIS:-} == true ]]; then
-            info "Travis will not run this."
-            return
+            YN=Y
         elif [[ ${PROMPT:-} == "menu" ]]; then
             local ANSWER
             set +e
@@ -33,7 +32,7 @@ update_self() {
             [Yy]*)
                 info "Updating DockSTARTer."
                 cd "${SCRIPTPATH}" || fatal "Failed to change to ${SCRIPTPATH} directory."
-                git fetch > /dev/null 2>&1 || fatal "Failed to fetch recent changes from git."
+                git fetch --all > /dev/null 2>&1 || fatal "Failed to fetch recent changes from git."
                 git reset --hard "${BRANCH}" > /dev/null 2>&1 || fatal "Failed to reset to ${BRANCH}."
                 git pull > /dev/null 2>&1 || fatal "Failed to pull recent changes from git."
                 git for-each-ref --format '%(refname:short)' refs/heads | grep -v master | xargs git branch -D || true

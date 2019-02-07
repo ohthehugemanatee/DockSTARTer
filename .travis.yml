@@ -13,6 +13,9 @@ jobs:
       env: TEST=run_install
       script: sudo bash ./main.sh -t ${TEST}
     - stage: run
+      env: TEST=run_update
+      script: sudo bash ./main.sh -t ${TEST}
+    - stage: run
       env: TEST=run_generate_slim
       script: sudo bash ./main.sh -t ${TEST}
     - stage: run
